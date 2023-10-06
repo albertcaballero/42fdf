@@ -1,45 +1,55 @@
-NAME = fdf
-LIBRARY = fdf.h
-CFLAGS= -Wall -Wextra -Werror
-CC = cc
-
 RED     =   \033[38;5;161m
 GREEN   =   \033[38;5;154m
 YELLOW  =   \033[38;5;227m
-BLUE	=   \033[38;5;81m
+BLUE    =   \033[38;5;81m
 PURPLE  =   \033[38;5;93m
-PINK	=	\033[38;5;219m
+PINK    =   \033[38;5;219m
 NC      =   \033[0m
 
-SRC = fdf.c gnl/get_next_line.c gnl/get_next_line_utils.c
+C = clang
+NAME = fdf
+LIB = libft/libft.a
+MLX = minilibx/libmlx.a
+FLAGS = -Wall -Wextra -Werror -O3
+LIBFT = libft
+DIR_O = temp
+DIR_MLX = minilibx
+HEADERS = includes
 
-all: makelib $(NAME)
+SOURCES = fdf.c
 
-$(NAME): $(LIBRARY) Makefile $(SRC) libft/libft.a
-	@$(CC) $(CFLAGS) $(SRC) -L./libft -lft -L./printf -lftprintf -o $(NAME)
-	@printf "${PURPLE}== FDF COMPILED SUCCESSFULLY ==\n${NC}"
+OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
-makelib:
-	@$(MAKE) -C ./libft bonus --no-print-directory -silent
-	@printf "${GREEN}Libft ok👍\n${NC}"
-	@$(MAKE) -C ./printf all --no-print-directory -silent
-	@printf "${GREEN}Printf ok👍\n${NC}"
+all: temp make_lib make_mlx $(NAME)
+
+$(NAME): $(OBJS) $(LIB) $(MLX)
+	$(C) $(FLAGS) -L $(LIBFT) -lft -o $@ $^ -framework OpenGL -framework AppKit -L $(DIR_MLX) -lmlx
+	# -fsanitize="address,undefined" -g
+	@echo "$(PURPLE)=====FDF COMPILED=====$(NC)"
+
+make_lib:
+	@$(MAKE) -C $(LIBFT) --no-print-directory
+
+make_mlx:
+	@$(MAKE) -C $(DIR_MLX) --no-print-directory
+
+temp:
+	@mkdir -p temp
+
+$(DIR_O)/%.o: %.c $(NAME).h $(LIB) $(MLX)
+	$(C) $(FLAGS) -I $(HEADERS) -c -o $@ $<
 
 clean:
-	@$(MAKE) -C ./libft clean --no-print-directory -silent
+	@rm -f $(OBJS)
+	@make clean -C $(LIBFT) --no-print-directory
+	@make clean -C $(DIR_MLX) --no-print-directory
+	@rm -rf $(DIR_O)
+	@echo "$(RED)FDF OBJ DELETED$(NC)"
 
 fclean: clean
-	@printf "${RED}....EXTERMINATING....\n${NC}"
-	@$(MAKE) -C ./libft fclean --no-print-directory -silent
-	@sleep 0.5
-	@printf "${PINK}🧨\tLIBFT\n${NC}"
-	@$(MAKE) -C ./printf fclean --no-print-directory -silent
-	@sleep 0.5
-	@printf "${PINK}🧨\tPRINTF\n${NC}"
 	@rm -f $(NAME)
-	@sleep 0.5
-	@printf "${PINK}🧨\tPIPEX\n${NC}"
-	@sleep 0.5
-	@printf "${RED}.......DONE.......\n${NC}"
+	@make fclean -C $(LIBFT) --no-print-directory
+	@make fclean -C $(DIR_MLX) --no-print-directory
+	@echo "$(RED)FDF ALL DELETED$(NC)"
 
 re: fclean all

@@ -6,12 +6,12 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 13:52:58 by alcaball          #+#    #+#             */
-/*   Updated: 2023/06/09 15:32:29 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/06 12:48:57 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
+/*
 size_t	ft_strlen(const char *str)
 {
 	size_t	i;
@@ -21,7 +21,7 @@ size_t	ft_strlen(const char *str)
 		i++;
 	return (i);
 }
-
+*/
 int	ft_putchar_fd(char c, int fd)
 {
 	if (write (fd, &c, 1) != 1)
