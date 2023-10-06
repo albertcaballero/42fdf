@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/06 14:13:31 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/06 16:43:04 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,52 @@ t_info	win_size(int fd)
 	window.height = i;
 	return (window);
 }
+void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+{
+	char	*dst;
+
+	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
+	*(unsigned int*)dst = color;
+}
+
+void	square(t_data *img, int x, int y)
+{
+	int	ix;
+	int	iy;
+
+	iy = 10;
+	while (iy < y)
+	{
+		ix = 10;
+		while (ix < x)
+		{
+			my_mlx_pixel_put(img, ix, iy, 0x00FF0000);
+			ix++;
+		}
+		iy++;
+	}
+
+}
+
+void circle(t_data *img, int h)
+{
+	int	ix;
+	int	iy;
+
+	iy =100;
+	while (iy < h)
+	{
+		ix = 10;
+		while (ix < h)
+		{	
+			if (pow((ix-100), 2)+pow((ix-100), 2) == pow(h/2, 2))
+				my_mlx_pixel_put(img, ix, iy, 0x00FF0000);
+			ix++;
+		}
+		iy++;
+	}
+	
+}
 
 int	main(int argc, char **argv)
 {
@@ -48,6 +94,9 @@ int	main(int argc, char **argv)
 	mlx_win = mlx_new_window(mlx, 400, 400, "FDF");
 	img.img = mlx_new_image(mlx, 400, 400);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	//square(&img, 200, 200);
+	circle(&img, 300);
+	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
 	return (0);
 }
