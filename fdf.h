@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/06 12:54:41 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/06 13:50:42 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdio.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <mlx.h>
+# include "minilibx/mlx.h"
 
 size_t	ft_strlen(const char *str);
 int		ft_printf(const char *str, ...);
@@ -28,5 +28,13 @@ typedef struct s_information
 	int	width;
 }	t_info;
 
+typedef struct s_data
+{
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
+}	t_data;
 
 #endif

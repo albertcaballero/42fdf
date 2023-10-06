@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/06 12:56:06 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/06 14:13:31 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ int	main(int argc, char **argv)
 	int		map_fd;
 	t_info	window;
 	void	*mlx;
+	void	*mlx_win;
+	t_data	img;
 
 	if (argc < 2)
 		return (0);
@@ -43,6 +45,9 @@ int	main(int argc, char **argv)
 		return (0);
 	mlx = mlx_init();
 	window = win_size(map_fd);
-	ft_printf("%i %i", window.height, window.width);
+	mlx_win = mlx_new_window(mlx, 400, 400, "FDF");
+	img.img = mlx_new_image(mlx, 400, 400);
+	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	mlx_loop(mlx);
 	return (0);
 }
