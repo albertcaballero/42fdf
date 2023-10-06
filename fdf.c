@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/06 16:43:04 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/06 18:20:25 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,31 @@ void	square(t_data *img, int x, int y)
 
 }
 
-void circle(t_data *img, int h)
+void	circle(t_data *img, int h)
 {
 	int	ix;
 	int	iy;
+	int	ii;
 
-	iy =100;
-	while (iy < h)
+	iy = 0;
+	ii = 0;
+	while (iy < 400)
 	{
-		ix = 10;
-		while (ix < h)
-		{	
-			if (pow((ix-100), 2)+pow((ix-100), 2) == pow(h/2, 2))
-				my_mlx_pixel_put(img, ix, iy, 0x00FF0000);
+		ix = 0;
+		while (ix < 400)
+		{
+			if (pow((ix-200), 2)+pow((iy-200), 2) == pow(h/2, 2))
+			{
+				my_mlx_pixel_put(img, ix, iy, 0x0000FF00);
+				ft_printf("%i, %i ||", ix, iy);
+				ii++;
+			}
 			ix++;
 		}
 		iy++;
 	}
-	
+	ft_printf("%i", ii);
+
 }
 
 int	main(int argc, char **argv)
@@ -95,7 +102,7 @@ int	main(int argc, char **argv)
 	img.img = mlx_new_image(mlx, 400, 400);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	//square(&img, 200, 200);
-	circle(&img, 300);
+	circle(&img, 200);
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
 	return (0);
