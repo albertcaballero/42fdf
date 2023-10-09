@@ -16,7 +16,7 @@ DIR_O = temp
 DIR_MLX = minilibx
 HEADERS = includes
 
-SOURCES = fdf.c
+SOURCES = fdf.c shapes.c utils.c
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
