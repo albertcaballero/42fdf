@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/09 15:24:36 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:53:00 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ void	square(t_data *img, t_dim size, int xst, int yst, int color)
 
 	iy = yst;
 	col = 0;
-	while (iy < size.h + yst)
+	while (iy < size.y + yst)
 	{
 		ix = xst;
-		while (ix < size.w + xst)
+		while (ix < size.x + xst)
 		{
-			if (ix == xst || ix == size.w + xst - 1 || iy == yst || iy == size.h + yst - 1)
+			if (ix == xst || ix == size.x + xst - 1 || iy == yst || iy == size.y + yst - 1)
 				my_mlx_pixel_put(img, ix, iy, color);
 			ix++;
 		}
@@ -34,56 +34,49 @@ void	square(t_data *img, t_dim size, int xst, int yst, int color)
 
 }
 
-void	grid(t_data *img, t_dim win, int *values)
+void	line(t_data *img, t_dim start, t_dim end)
 {
-	int		vert;
-	int		horiz;
-	t_dim	dim;
-	int		col;
+	float	ix;
+	float	iy;
+	float	grad;
 
-	vert = 0;
-	dim.w = 20;
-	dim.h = 20;
-	col = 0;
-	while (vert < win.h)
+	ix = 0;
+	iy = 0;
+	grad = (float)abs(end.y - start.y) / (float)abs(end.x - start.x);
+	if (abs(end.x - start.x) >= abs(end.y - end.y))
 	{
-		horiz = 0;
-		while (horiz < win.w)
+		iy = start.y;
+		while (ix < end.x + start.x)
 		{
-			if (values[col] > 0)
-				square(img, dim, 100 + dim.w * horiz, 100 + dim.h * vert, 0x00FF0000);
-			else
-				square(img, dim, 100 + dim.w * horiz, 100 + dim.h * vert, 0x0000FF00);
-			horiz++;
-			col++;
+			my_mlx_pixel_put(img, ix + start.x, (int)round(iy), 0x0000FF00);
+			ix++;
+			iy += grad;
 		}
-		vert++;
+	}
+	else
+	{
+		ix = start.x;
+		while (iy < end.y + start.y)
+		{
+			my_mlx_pixel_put(img, iy + start.y, (int)round(ix), 0x0000FF00);
+			iy++;
+			ix += grad;
+		}
 	}
 }
 
-void	circle(t_data *img, int h)
+void	grid(t_data *img, t_dim win, int *values)
 {
-	int	ix;
-	int	iy;
-	int	ii;
+	t_dim	end;
+	t_dim	start;
+	int		col;
+	int		maxval;
 
-	iy = 0;
-	ii = 0;
-	while (iy < 400)
-	{
-		ix = 0;
-		while (ix < 400)
-		{
-			if (pow((ix - 200), 2) + pow((iy - 200), 2) == pow(h / 2, 2))
-			{
-				my_mlx_pixel_put(img, ix, iy, 0x0000FF00);
-				ft_printf("%i, %i ||", ix, iy);
-				ii++;
-			}
-			ix++;
-		}
-		iy++;
-	}
-	ft_printf("%i", ii);
-
+	end.x = 25;
+	end.y = 200;
+	start.x = 400;
+	start.y = 10;
+	col = 0;
+	maxval = max_value(values, win);
+	line (img, start, end);
 }

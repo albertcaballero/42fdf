@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/09 15:14:35 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/09 17:41:30 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ t_dim	win_size(int fd)
 			j++;
 		i++;
 	}
-	window.w = j + 1;
+	window.x = j + 1;
 	i = 1;
 	while (get_next_line(fd) != NULL)
 		i++;
-	window.h = i;
+	window.y = i;
 	close(fd);
 	return (window);
 }
@@ -51,7 +51,7 @@ int	*read_map(char *argv, t_dim mapdim)
 		return (NULL);
 	line = get_next_line(map_fd);
 	i = 0;
-	values = malloc (sizeof(int) * mapdim.w * mapdim.h);
+	values = malloc (sizeof(int) * mapdim.x * mapdim.y);
 	while (line != NULL)
 	{
 		j = 0;
