@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/09 17:53:00 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/10 13:49:42 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,21 @@ void	square(t_data *img, t_dim size, int xst, int yst, int color)
 
 }
 
-void	line(t_data *img, t_dim start, t_dim end)
+void	straight_line(t_data *img, int x, int starty, int endx, int endy)
+{
+	int	iy;
+
+	iy = 0;
+	(void) endx;
+	while (iy < abs(endy - starty))
+	{
+		my_mlx_pixel_put(img, x, iy + starty, 0x0000FF00);
+		iy++;
+	}
+	return ;
+}
+
+void	line(t_data *img, int startx, int starty, int endx, int endy)
 {
 	float	ix;
 	float	iy;
@@ -42,23 +56,26 @@ void	line(t_data *img, t_dim start, t_dim end)
 
 	ix = 0;
 	iy = 0;
-	grad = (float)abs(end.y - start.y) / (float)abs(end.x - start.x);
-	if (abs(end.x - start.x) >= abs(end.y - end.y))
+	if (endx - startx == 0 || endy - starty == 0)
+		return (straight_line(img, startx, starty, endx, endy));
+	if (abs(endx - startx) > abs(endy - starty))
 	{
-		iy = start.y;
-		while (ix < end.x + start.x)
+		grad = (float)(endy - starty) / (float)(endx - startx);
+		iy = starty;
+		while (ix < abs(endx - startx))
 		{
-			my_mlx_pixel_put(img, ix + start.x, (int)round(iy), 0x0000FF00);
+			my_mlx_pixel_put(img, ix + startx, (int)round(iy), 0x0000FF00);
 			ix++;
 			iy += grad;
 		}
 	}
 	else
 	{
-		ix = start.x;
-		while (iy < end.y + start.y)
+		grad = (float)(endx - startx) / (float)(endy - starty);
+		ix = startx;
+		while (iy < abs(endy - starty))
 		{
-			my_mlx_pixel_put(img, iy + start.y, (int)round(ix), 0x0000FF00);
+			my_mlx_pixel_put(img, (int)round(ix), iy + starty, 0x0000FF00);
 			iy++;
 			ix += grad;
 		}
@@ -71,12 +88,29 @@ void	grid(t_data *img, t_dim win, int *values)
 	t_dim	start;
 	int		col;
 	int		maxval;
+	int		i;
 
-	end.x = 25;
-	end.y = 200;
-	start.x = 400;
-	start.y = 10;
+	i = 0;
+	start.x = 250;
+	end.x = 600;
+	start.y = 50;
+	end.y = 300;
 	col = 0;
 	maxval = max_value(values, win);
-	line (img, start, end);
+	while (i < win.x)
+	{
+		line (img, start.x, start.x + (450/win.x), end.x, end.x + (250/win.y));
+		i++;
+	}
+	line (img, 250, 50, 600, 300);
+	line (img, 250, 50, 100, 200);
+	line (img, 100, 200, 450, 450);
+	line (img, 600, 300, 450, 450);
+	// while (i < win.x - 1)
+	// {
+	// 	line (img, start, end);
+	// 	i++;
+	// 	start.x = end.x;
+	// 	end.x = start.x + 10;
+	// }
 }
