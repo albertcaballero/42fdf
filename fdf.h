@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/10 16:32:45 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:12:59 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,13 @@ typedef struct s_dimensions
 	float	z;
 }	t_dim;
 
+typedef struct s_coordinates
+{
+	int	y;
+	int	x;
+	int	z;
+}	t_coord;
+
 typedef struct s_data
 {
 	void	*img;
@@ -49,6 +56,6 @@ void	ft_free(char *gnline, char **splited);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		max_value(int *values, t_dim mapsize);
 int		colors(int values, int maxval);
-t_dim	get_point_coord(int *values, int i, t_dim win);
+t_coord	get_point_coord(int *values, int i, t_dim win);
 
 #endif
