@@ -6,12 +6,15 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/09 17:16:03 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:32:45 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
+
+# define WIN_H 800
+# define WIN_W 800
 
 # include <stdio.h>
 # include <unistd.h>
@@ -22,9 +25,9 @@
 
 typedef struct s_dimensions
 {
-	int	y;
-	int	x;
-	int z;
+	float	y;
+	float	x;
+	float	z;
 }	t_dim;
 
 typedef struct s_data
@@ -46,5 +49,6 @@ void	ft_free(char *gnline, char **splited);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		max_value(int *values, t_dim mapsize);
 int		colors(int values, int maxval);
+t_dim	get_point_coord(int *values, int i, t_dim win);
 
 #endif

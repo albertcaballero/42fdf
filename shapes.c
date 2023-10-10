@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/10 13:49:42 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/10 16:50:04 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,33 +84,18 @@ void	line(t_data *img, int startx, int starty, int endx, int endy)
 
 void	grid(t_data *img, t_dim win, int *values)
 {
-	t_dim	end;
-	t_dim	start;
-	int		col;
-	int		maxval;
+	t_dim	point;
+	t_dim	next;
 	int		i;
 
 	i = 0;
-	start.x = 250;
-	end.x = 600;
-	start.y = 50;
-	end.y = 300;
-	col = 0;
-	maxval = max_value(values, win);
-	while (i < win.x)
+	while (i < win.x * win.y)
 	{
-		line (img, start.x, start.x + (450/win.x), end.x, end.x + (250/win.y));
+		point = get_point_coord(values, i, win);
+		next = get_point_coord(values, i + 1, win);
+		my_mlx_pixel_put(img, point.x, point.y, 0x0000FF00);
+		if ((int)round((i + 1) % (int)(win.x)) != 0 && i != 0)
+			line(img, point.x, point.y, next.x, next.y);
 		i++;
 	}
-	line (img, 250, 50, 600, 300);
-	line (img, 250, 50, 100, 200);
-	line (img, 100, 200, 450, 450);
-	line (img, 600, 300, 450, 450);
-	// while (i < win.x - 1)
-	// {
-	// 	line (img, start, end);
-	// 	i++;
-	// 	start.x = end.x;
-	// 	end.x = start.x + 10;
-	// }
 }

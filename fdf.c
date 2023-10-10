@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/09 17:41:30 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/10 15:59:47 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ int	main(int argc, char **argv)
 	mlx = mlx_init();
 	window = win_size(map_fd);
 	map_values = read_map(argv[1], window);
-	mlx_win = mlx_new_window(mlx, 700, 700, "FDF");
-	img.img = mlx_new_image(mlx, 700, 700);
+	mlx_win = mlx_new_window(mlx, WIN_W, WIN_H, "FDF");
+	img.img = mlx_new_image(mlx, WIN_W, WIN_H);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 	grid(&img, window, map_values);
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
