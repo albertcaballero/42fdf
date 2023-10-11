@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/10 18:59:36 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/11 09:24:46 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,8 @@ void	square(t_data *img, t_dim size, int xst, int yst, int color)
 {
 	int	ix;
 	int	iy;
-	int	col;
 
 	iy = yst;
-	col = 0;
 	while (iy < size.y + yst)
 	{
 		ix = xst;

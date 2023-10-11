@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:18:47 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/10 19:11:19 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/11 09:33:30 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ t_coord	get_point_coord(int *values, int i, t_dim win)
 {
 	t_coord	coord;
 
-	coord.y = (int)round(i / (int)(win.x)) * (250 / win.y) + 50 + 15*(int)round(i % (int)(win.x));
-	coord.x = (int)round(i % (int)(win.x)) * (450 / win.x) + 250 - 20*(int)round(i / (int)(win.x));
+	coord.y = (int)round(i / (int)(win.x)) * (250 / win.y) + 50 + 10*(int)round(i % (int)(win.x));
+	coord.x = (int)round(i % (int)(win.x)) * (450 / win.x) + 250 - 10*(int)round(i / (int)(win.x));
 
-	coord.z = values[i];
+	coord.z = values[i]*3;
 	coord.x = coord.x + coord.z * (sqrt(3) / 2);
 	coord.y = coord.y - coord.z * 0.5;
 	return (coord);

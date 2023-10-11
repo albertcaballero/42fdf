@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 12:51:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/07/12 13:49:56 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/11 09:24:01 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,9 @@ static char	*reader(int fd, char *cola)
 
 char	*get_next_line(int fd)
 {
-	int			i;
 	char		*mega;
 	static char	*cola;
 
-	i = 0;
 	mega = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
