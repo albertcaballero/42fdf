@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/12 16:57:12 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/12 19:46:40 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define WHITE 0xFFFFFF
 # define CYAN 0x00FFFF
 # define YELLOW 0xFFFF00
+# define BLACK 0x000000
 
 # include <stdio.h>
 # include <unistd.h>
@@ -39,9 +40,9 @@ typedef struct s_dimensions
 
 typedef struct s_coordinates
 {
-	int	y;
-	int	x;
-	int	z;
+	float	y;
+	float	x;
+	float	z;
 }	t_coord;
 
 typedef struct s_data
@@ -68,5 +69,6 @@ int		map_length(char	*line);
 t_coord	scale(t_coord coord);
 t_coord	translation(t_coord coord);
 t_coord	rotation(t_coord coord);
+void	clear_screen(t_data *img);
 
 #endif

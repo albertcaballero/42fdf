@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/12 17:22:04 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/12 19:49:34 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,9 @@ t_coord	win_size(char *argv)
 
 t_coord	init_coordinates(char *splitted, t_coord value, t_coord mapdim, int i)
 {
-	value.x = (i % mapdim.x) * 2;
-	value.y = (i / mapdim.x) * 2;
+	value.x = (float)(i % (int)mapdim.x) * 2;
+	value.y = (float)(i / (int)mapdim.x) * 2;
 	value.z = ft_atoi(splitted);
-
 	value.z /= 2;
 	// value.x = value.x + value.z * (sqrt(3) / 2);
 	// value.y = value.y - value.z * 0.5;

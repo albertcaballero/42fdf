@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:18:47 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/12 17:11:45 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/12 19:45:39 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,6 @@ void	ft_free(char *gnline, char **splited)
 	free (splited);
 }
 
-t_coord	start_draw_coord(t_coord point, t_coord win)
-{
-	(void) win;
-	point = scale(point);
-	point = rotation(point);
-	point = translation(point);
-	return (point);
-}
-
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {
 	char	*dst;
@@ -63,5 +54,23 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	{
 		dst = data->addr + (y * data->line_length + x * (data->bpp / 8));
 		*(unsigned int *)dst = color;
+	}
+}
+
+void	clear_screen(t_data *img)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < WIN_H)
+	{
+		x = 0;
+		while (x < WIN_W)
+		{
+			my_mlx_pixel_put(img, x, y, BLACK);
+			x++;
+		}
+		y++;
 	}
 }
