@@ -3,34 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/11 09:24:46 by albert           ###   ########.fr       */
+/*   Updated: 2023/10/12 13:04:32 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	square(t_data *img, t_dim size, int xst, int yst, int color)
-{
-	int	ix;
-	int	iy;
-
-	iy = yst;
-	while (iy < size.y + yst)
-	{
-		ix = xst;
-		while (ix < size.x + xst)
-		{
-			if (ix == xst || ix == size.x + xst - 1 || iy == yst || iy == size.y + yst - 1)
-				my_mlx_pixel_put(img, ix, iy, color);
-			ix++;
-		}
-		iy++;
-	}
-
-}
 
 void	straight_line(t_data *img, int startx, int starty, int endx, int endy)
 {
@@ -90,7 +70,7 @@ void	line(t_data *img, int startx, int starty, int endx, int endy)
 	}
 }
 
-void	grid(t_data *img, t_dim win, int *values)
+void	grid(t_data *img, t_coord win, t_coord *values)
 {
 	t_coord	point;
 	t_coord	next;
@@ -103,7 +83,7 @@ void	grid(t_data *img, t_dim win, int *values)
 		point = get_point_coord(values, i, win);
 		next = get_point_coord(values, i + 1, win);
 		my_mlx_pixel_put(img, point.x, point.y, 0x0000FF00);
-		if ((int)round((i + 1) % (int)(win.x)) != 0 && i != 0)
+		if ((int)round((i + 1) % (int)(win.x)) != 0)
 			line(img, point.x, point.y, next.x, next.y);
 		if ((i) / (int)(win.x) + 1 < win.y)
 		{
