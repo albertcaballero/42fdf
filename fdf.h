@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/12 13:21:19 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/12 13:56:52 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,9 @@ void	ft_free(char *gnline, char **splited);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		max_value(int *values, t_dim mapsize);
 int		colors(int values, int maxval);
-t_coord	get_point_coord(int *values, int i, t_coord win);
+t_coord	start_draw_coord(t_coord point, t_coord win);
 int		map_length(char	*line);
+t_coord	scale(t_coord coord);
+t_coord	translation(t_coord coord);
 
 #endif

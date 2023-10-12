@@ -6,35 +6,11 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/12 13:04:32 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:22:38 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	straight_line(t_data *img, int startx, int starty, int endx, int endy)
-{
-	int	i;
-
-	i = 0;
-	if (endy - starty == 0)
-	{
-		while (i < abs(endy - starty))
-		{
-			my_mlx_pixel_put(img, startx, i + starty, 0x0000FF00);
-			i++;
-		}
-	}
-	else
-	{
-		while (i < abs(endx - startx))
-		{
-			my_mlx_pixel_put(img, i + startx, starty, 0x0000FF00);
-			i++;
-		}
-	}
-	return ;
-}
 
 void	line(t_data *img, int startx, int starty, int endx, int endy)
 {
@@ -44,8 +20,6 @@ void	line(t_data *img, int startx, int starty, int endx, int endy)
 
 	ix = 0;
 	iy = 0;
-	if (endx - startx == 0 || endy - starty == 0)
-		return (straight_line(img, startx, starty, endx, endy));
 	if (abs(endx - startx) > abs(endy - starty))
 	{
 		grad = (float)(endy - starty) / (float)(endx - startx);
@@ -80,14 +54,14 @@ void	grid(t_data *img, t_coord win, t_coord *values)
 	i = 0;
 	while (i < win.x * win.y)
 	{
-		point = get_point_coord(values, i, win);
-		next = get_point_coord(values, i + 1, win);
+		point = start_draw_coord(values[i], win);
+		next = start_draw_coord(values[i + 1], win);
 		my_mlx_pixel_put(img, point.x, point.y, 0x0000FF00);
-		if ((int)round((i + 1) % (int)(win.x)) != 0)
+		if ((i + 1) % (win.x) != 0)
 			line(img, point.x, point.y, next.x, next.y);
 		if ((i) / (int)(win.x) + 1 < win.y)
 		{
-			lower = get_point_coord(values, i + win.x, win);
+			lower = start_draw_coord(values[i + win.x], win);
 			line(img, point.x, point.y, lower.x, lower.y);
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/12 13:12:20 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/12 14:16:11 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,34 +19,37 @@ t_coord	win_size(char *argv)
 	int		columns;
 	char	*line;
 
-	fd = open(argv[1], R_OK);
+	fd = open(argv, R_OK);
 	if (fd < 0)
 		return (window.x = 0, window);
 	line = get_next_line(fd);
 	window.x = map_length(line);
+	if (window.x == 0)
+		return (window.x = 0, window);
 	columns = 1;
 	while (line != NULL)
 	{
 		free (line);
 		line = get_next_line(fd);
-		if (map_length(line) != window.x)
+		if (map_length(line) != window.x && map_length(line) != 0)
 			return (window.x = 0, window);
 		columns++;
 	}
 	free(line);
-	window.y = columns;
+	window.y = columns - 1;
 	close(fd);
 	return (window);
 }
 
 t_coord	init_coordinates(char *splitted, t_coord value, t_coord mapdim, int i)
 {
-	value.x = (i / mapdim.x) * 2;
-	value.y = (i % mapdim.x) * 2;
+	value.x = (i % mapdim.x) * 2;
+	value.y = (i / mapdim.x) * 2;
 	value.z = ft_atoi(splitted);
 
 	// value.x = value.x + value.z * (sqrt(3) / 2);
 	// value.y = value.y - value.z * 0.5;
+	return (value);
 }
 
 t_coord	*read_map(char *argv, t_coord mapdim)
@@ -64,12 +67,18 @@ t_coord	*read_map(char *argv, t_coord mapdim)
 	line = get_next_line(map_fd);
 	i = 0;
 	values = malloc (sizeof(t_coord) * mapdim.x * mapdim.y);
+	if (!values)
+		return (NULL);
 	while (line != NULL)
 	{
 		j = 0;
 		splited = ft_split(line, ' ');
-		while (splited[j++] != NULL)
-			values[i++] = init_coordinates(splited[j], values[i], mapdim, i);
+		while (splited[j] != NULL)
+		{
+			values[i] = init_coordinates(splited[j], values[i], mapdim, i);
+			i++;
+			j++;
+		}
 		ft_free(line, splited);
 		line = get_next_line(map_fd);
 	}
@@ -95,7 +104,7 @@ int	main(int argc, char **argv)
 	map_values = read_map(argv[1], window);
 	mlx_win = mlx_new_window(mlx, WIN_W, WIN_H, "FDF");
 	img.img = mlx_new_image(mlx, WIN_W, WIN_H);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
+	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length, &img.endian);
 	grid(&img, window, map_values);
 	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
 	mlx_loop(mlx);
