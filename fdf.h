@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/12 13:56:52 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/12 16:57:12 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 
 # define WIN_H 800
 # define WIN_W 800
+
+# define BLUE 0x0000FF
+# define GREEN 0x00FF00
+# define RED 0xFF0000
+# define WHITE 0xFFFFFF
+# define CYAN 0x00FFFF
+# define YELLOW 0xFFFF00
 
 # include <stdio.h>
 # include <unistd.h>
@@ -60,5 +67,6 @@ t_coord	start_draw_coord(t_coord point, t_coord win);
 int		map_length(char	*line);
 t_coord	scale(t_coord coord);
 t_coord	translation(t_coord coord);
+t_coord	rotation(t_coord coord);
 
 #endif

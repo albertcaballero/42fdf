@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/12 14:16:11 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:22:04 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ t_coord	init_coordinates(char *splitted, t_coord value, t_coord mapdim, int i)
 	value.y = (i / mapdim.x) * 2;
 	value.z = ft_atoi(splitted);
 
+	value.z /= 2;
 	// value.x = value.x + value.z * (sqrt(3) / 2);
 	// value.y = value.y - value.z * 0.5;
 	return (value);

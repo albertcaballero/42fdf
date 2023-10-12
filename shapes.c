@@ -6,11 +6,31 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/12 14:22:38 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:46:31 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	backline(t_data *img, int endx, int endy, int startx, int starty)
+{
+	int	ix;
+	int	iy;
+	int	grad;
+
+	ix = 0;
+	iy = 0;
+	grad = (float)(endy - starty) / (float)(endx - startx);
+	iy = starty;
+	while (ix < abs(endx - startx))
+	{
+		my_mlx_pixel_put(img, ix + startx, (int)round(iy), YELLOW);
+		ix++;
+		iy += grad;
+	}
+	my_mlx_pixel_put(img, startx, starty, RED);
+	my_mlx_pixel_put(img, endx, endy, BLUE);
+}
 
 void	line(t_data *img, int startx, int starty, int endx, int endy)
 {
@@ -20,13 +40,15 @@ void	line(t_data *img, int startx, int starty, int endx, int endy)
 
 	ix = 0;
 	iy = 0;
+	// if (endx < startx)
+	// 	backline(img, startx, starty, endx, endy);
 	if (abs(endx - startx) > abs(endy - starty))
 	{
 		grad = (float)(endy - starty) / (float)(endx - startx);
 		iy = starty;
 		while (ix < abs(endx - startx))
 		{
-			my_mlx_pixel_put(img, ix + startx, (int)round(iy), 0x00FFFFFF);
+			my_mlx_pixel_put(img, ix + startx, (int)round(iy), YELLOW);
 			ix++;
 			iy += grad;
 		}
@@ -37,10 +59,26 @@ void	line(t_data *img, int startx, int starty, int endx, int endy)
 		ix = startx;
 		while (iy < abs(endy - starty))
 		{
-			my_mlx_pixel_put(img, (int)round(ix), iy + starty, 0x00FFFFFF);
+			my_mlx_pixel_put(img, (int)round(ix), iy + starty, WHITE);
 			iy++;
 			ix += grad;
 		}
+	}
+}
+
+void minisq(t_data *img, int x, int y, int color)
+{
+	int	ix;
+	int	iy = 0;
+	while (iy < 5)
+	{
+		ix = 0;
+		while (ix < 5)
+		{
+			my_mlx_pixel_put(img, x+ix, y+iy, color);
+			ix++;
+		}
+		iy++;
 	}
 }
 
@@ -49,10 +87,12 @@ void	grid(t_data *img, t_coord win, t_coord *values)
 	t_coord	point;
 	t_coord	next;
 	t_coord	lower;
+	int		x;
+	int	y;
 	int		i;
 
 	i = 0;
-	while (i < win.x * win.y)
+	while (i < 0) // win.x * win.y)
 	{
 		point = start_draw_coord(values[i], win);
 		next = start_draw_coord(values[i + 1], win);
@@ -66,4 +106,10 @@ void	grid(t_data *img, t_coord win, t_coord *values)
 		}
 		i++;
 	}
+	x = 600;
+	y = 300;
+	line(img, 350, 350, x, y);
+	minisq(img, 350, 350, GREEN);
+	minisq(img, x, y, RED);
+	//my_mlx_pixel_put(img, x, y, RED);
 }

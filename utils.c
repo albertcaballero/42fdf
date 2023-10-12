@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:18:47 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/12 14:17:18 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/12 17:11:45 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_coord	start_draw_coord(t_coord point, t_coord win)
 {
 	(void) win;
 	point = scale(point);
+	point = rotation(point);
 	point = translation(point);
 	return (point);
 }
