@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/13 13:54:33 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/13 17:01:31 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,24 +88,25 @@ t_coord	*read_map(char *argv, t_coord mapdim)
 
 int	main(int argc, char **argv)
 {
-	t_coord	window;
-	void	*mlx;
-	void	*mlx_win;
+	t_coord	map;
+	t_vars	mlx;
 	t_data	img;
 	t_coord	*map_values;
 
 	if (argc < 2)
 		return (0);
-	window = win_size(argv[1]);
-	if (window.x == 0)
+	map = win_size(argv[1]);
+	if (map.x == 0)
 		return (write(2, "invalid map", 11));
-	mlx = mlx_init();
-	map_values = read_map(argv[1], window);
-	mlx_win = mlx_new_window(mlx, WIN_W, WIN_H, "FDF");
-	img.img = mlx_new_image(mlx, WIN_W, WIN_H);
+	mlx.mlx = mlx_init();
+	map_values = read_map(argv[1], map);
+	mlx.win = mlx_new_window(mlx.mlx, WIN_W, WIN_H, "FDF");
+	img.img = mlx_new_image(mlx.mlx, WIN_W, WIN_H);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length, &img.endian);
-	grid(&img, window, map_values);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
-	return (0);
+	grid(&img, map, map_values);
+	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
+	mlx_key_hook(mlx.win, register_hooks, &mlx);
+	mlx_loop(mlx.mlx);
+//NO ESTAS COMPILANDO CONFLAGs EN MAKEFILE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	return (0); 
 }

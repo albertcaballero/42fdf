@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/13 14:30:02 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:15:20 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	line(t_data *img, t_coord start, t_coord end, int max)
 	if (fabs(end.x - start.x) > fabs(end.y - start.y))
 	{
 		if (end.x < start.x)
-			return (horiz_backline(img, start, end));
+			return (horiz_backline(img, start, end, max));
 		grad = (float)(end.y - start.y) / (float)(end.x - start.x);
 		iy = start.y;
 		while (ix < fabs(end.x - start.x))
@@ -70,7 +70,7 @@ void	line(t_data *img, t_coord start, t_coord end, int max)
 	else
 	{
 		if (end.y < start.y)
-			return (vert_backline(img, start, end));
+			return (vert_backline(img, start, end, max));
 		grad = (float)(end.x - start.x) / (float)(end.y - start.y);
 		ix = start.x;
 		while (iy < fabs(end.y - start.y))
@@ -91,13 +91,12 @@ void	grid(t_data *img, t_coord win, t_coord *values)
 	int		i;
 
 	i = 0;
-	max = max_value(values, win);
+	max = max_value(values, win, MAX);
 	while (i < win.x * win.y)
 	{
 		point = start_draw_coord(values[i]);
 		next = start_draw_coord(values[i + 1]);
-		my_mlx_pixel_put(img, point.x, point.y, GREEN);
-		if ((i + 1) % (int)(win.x) != 0)
+		if ((i + 1) % (int)win.x != 0)
 			line(img, point, next, max);
 		if ((i) / (int)(win.x) + 1 < win.y)
 		{

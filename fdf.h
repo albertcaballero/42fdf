@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/13 14:30:22 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/13 16:56:02 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,13 @@
 # define SPRING 0x5ef38c
 # define FAN 0xa80874
 
+# define FINAL 0xFFFF00
+# define START 0x0000FF
+
 # define ADD 1
 # define DIVIDE 2
+# define MAX 1
+# define MIN 0
 
 # include <stdio.h>
 # include <unistd.h>
@@ -36,6 +41,12 @@
 # include "minilibx/mlx.h"
 # include <math.h>
 # include <stdlib.h>
+
+typedef struct s_vars
+{
+	void	*mlx;
+	void	*win;
+}	t_vars;
 
 typedef struct s_dimensions
 {
@@ -69,6 +80,17 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
+typedef struct s_input
+{
+	int	zoom;
+	int	mvx;
+	int	mvy;
+	int	rotx;
+	int	roty;
+	int	rotz;
+	int	height;
+}	t_input;
+
 size_t	ft_strlen(const char *str);
 int		ft_printf(const char *str, ...);
 char	*get_next_line(int fd);
@@ -77,7 +99,7 @@ char	**ft_split(char const *s, char c);
 void	grid(t_data *img, t_coord win, t_coord *values);
 void	ft_free(char *gnline, char **splited);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int		max_value(t_coord *values, t_coord map);
+int		max_value(t_coord *values, t_coord map, int flag);
 int		colors(t_coord point, t_coord next, int i, int max);
 t_coord	start_draw_coord(t_coord point);
 int		map_length(char	*line);
@@ -85,5 +107,6 @@ t_coord	scale(t_coord coord);
 t_coord	translation(t_coord coord);
 t_coord	rotation(t_coord coord);
 void	clear_screen(t_data *img);
+int		register_hooks (int key, t_vars *mlx);
 
 #endif

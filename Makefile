@@ -16,15 +16,15 @@ DIR_O = temp
 DIR_MLX = minilibx
 HEADERS = includes
 
-SOURCES = fdf.c shapes.c utils.c colors.c movements.c
+SOURCES = fdf.c shapes.c utils.c colors.c movements.c hooks.c
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
 all: temp make_lib make_mlx $(NAME)
 
 $(NAME): $(OBJS) $(LIB) $(MLX)
-	$(C) $(FLAGS) -L $(LIBFT) -lft -o $@ $^ -framework OpenGL -framework AppKit -lm -L $(DIR_MLX) -lmlx
-	# -fsanitize="address,undefined" -g
+	$(C) -L $(LIBFT) -lft -o $@ $^ -framework OpenGL -framework AppKit -lm -L $(DIR_MLX) -lmlx 
+	@#-fsanitize="address,undefined" -g
 	@echo "$(PURPLE)=====FDF COMPILED=====$(NC)"
 
 make_lib:
@@ -37,7 +37,7 @@ temp:
 	@mkdir -p temp
 
 $(DIR_O)/%.o: %.c $(NAME).h $(LIB) $(MLX)
-	$(C) $(FLAGS) -I $(HEADERS) -c -o $@ $<
+	$(C) -I $(HEADERS) -c -o $@ $<
 
 clean:
 	@rm -f $(OBJS)
