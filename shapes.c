@@ -6,13 +6,13 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/13 13:19:23 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/13 14:30:02 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	horiz_backline(t_data *img, t_coord start, t_coord end)
+void	horiz_backline(t_data *img, t_coord start, t_coord end, int max)
 {
 	float	ix;
 	float	iy;
@@ -23,13 +23,13 @@ void	horiz_backline(t_data *img, t_coord start, t_coord end)
 	iy = start.y;
 	while (ix < fabs(end.x - start.x))
 	{
-		my_mlx_pixel_put(img, -ix + start.x, (int)round(iy), colors(start, end, ix));
+		my_mlx_pixel_put(img, -ix + start.x, (int)round(iy), colors(start, end, ix, max));
 		ix++;
 		iy += grad;
 	}
 }
 
-void	vert_backline(t_data *img, t_coord start, t_coord end)
+void	vert_backline(t_data *img, t_coord start, t_coord end, int max)
 {
 	float	ix;
 	float	iy;
@@ -40,13 +40,13 @@ void	vert_backline(t_data *img, t_coord start, t_coord end)
 	ix = start.x;
 	while (iy < fabs(end.y - start.y))
 	{
-		my_mlx_pixel_put(img, (int)round(ix), -iy + start.y, colors(start, end, iy));
+		my_mlx_pixel_put(img, (int)round(ix), -iy + start.y, colors(start, end, iy, max));
 		iy++;
 		ix += grad;
 	}
 }
 
-void	line(t_data *img, t_coord start, t_coord end)
+void	line(t_data *img, t_coord start, t_coord end, int max)
 {
 	float	ix;
 	float	iy;
@@ -62,7 +62,7 @@ void	line(t_data *img, t_coord start, t_coord end)
 		iy = start.y;
 		while (ix < fabs(end.x - start.x))
 		{
-			my_mlx_pixel_put(img, ix + start.x, (int)round(iy), colors(start, end, ix));
+			my_mlx_pixel_put(img, ix + start.x, (int)round(iy), colors(start, end, ix, max));
 			ix++;
 			iy += grad;
 		}
@@ -75,7 +75,7 @@ void	line(t_data *img, t_coord start, t_coord end)
 		ix = start.x;
 		while (iy < fabs(end.y - start.y))
 		{
-			my_mlx_pixel_put(img, (int)round(ix), iy + start.y, colors(start, end, iy));
+			my_mlx_pixel_put(img, (int)round(ix), iy + start.y, colors(start, end, iy, max));
 			iy++;
 			ix += grad;
 		}
@@ -87,20 +87,22 @@ void	grid(t_data *img, t_coord win, t_coord *values)
 	t_coord	point;
 	t_coord	next;
 	t_coord	lower;
+	int		max;
 	int		i;
 
 	i = 0;
+	max = max_value(values, win);
 	while (i < win.x * win.y)
 	{
 		point = start_draw_coord(values[i]);
 		next = start_draw_coord(values[i + 1]);
 		my_mlx_pixel_put(img, point.x, point.y, GREEN);
 		if ((i + 1) % (int)(win.x) != 0)
-			line(img, point, next);
+			line(img, point, next, max);
 		if ((i) / (int)(win.x) + 1 < win.y)
 		{
 			lower = start_draw_coord(values[i + (int)win.x]);
-			line(img, point, lower);
+			line(img, point, lower, max);
 		}
 		(void) lower;
 		i++;
