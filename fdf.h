@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/12 19:46:40 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/13 13:52:21 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@
 # define CYAN 0x00FFFF
 # define YELLOW 0xFFFF00
 # define BLACK 0x000000
+# define TURQ 0x5DC1B9
+# define SPRING 0x5ef38c
+# define FAN 0xa80874
+
+# define ADD 1
+# define DIVIDE 2
 
 # include <stdio.h>
 # include <unistd.h>
@@ -43,7 +49,16 @@ typedef struct s_coordinates
 	float	y;
 	float	x;
 	float	z;
+	float	h;
 }	t_coord;
+
+typedef struct s_colors
+{
+	int	r;
+	int	g;
+	int	b;
+	int	all;
+}	t_colors;
 
 typedef struct s_data
 {
@@ -63,8 +78,8 @@ void	grid(t_data *img, t_coord win, t_coord *values);
 void	ft_free(char *gnline, char **splited);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		max_value(int *values, t_dim mapsize);
-int		colors(int values, int maxval);
-t_coord	start_draw_coord(t_coord point, t_coord win);
+int		colors(t_coord point, t_coord next, int i);
+t_coord	start_draw_coord(t_coord point);
 int		map_length(char	*line);
 t_coord	scale(t_coord coord);
 t_coord	translation(t_coord coord);
