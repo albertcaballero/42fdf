@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/13 16:56:02 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/14 00:47:06 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,19 @@
 # define SPRING 0x5ef38c
 # define FAN 0xa80874
 
-# define FINAL 0xFFFF00
-# define START 0x0000FF
+# define ESC 53
+# define K 40
+# define L 37
+# define I 34
+# define M 46
+# define U 32
+# define O 31
+# define LEFT 123
+# define RIGHT 124
+# define DOWN 125
+# define UP 126
+# define V 9
+# define B 11
 
 # define ADD 1
 # define DIVIDE 2
@@ -103,10 +114,11 @@ int		max_value(t_coord *values, t_coord map, int flag);
 int		colors(t_coord point, t_coord next, int i, int max);
 t_coord	start_draw_coord(t_coord point);
 int		map_length(char	*line);
-t_coord	scale(t_coord coord);
-t_coord	translation(t_coord coord);
-t_coord	rotation(t_coord coord);
+t_coord	scale(t_coord coord, t_input input);
+t_coord	translation(t_coord coord, t_input input);
+t_coord	rotation(t_coord coord, t_input input);
 void	clear_screen(t_data *img);
 int		register_hooks (int key, t_vars *mlx);
+t_input	init_input(t_input inp);
 
 #endif

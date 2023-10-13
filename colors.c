@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   colors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:53:21 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/13 17:41:58 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/13 23:33:23 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,21 @@ t_colors	gradient(t_colors endcolor, t_colors start, int len, int i)
 	return (rgb);
 }
 
-t_colors	relative_color(int max, t_coord point, t_colors final)
+t_colors	relative_color(int max, t_coord point, t_colors fin, t_colors st)
 {
 	t_colors	color;
-	float		percent;
+	float		fpercent;
+	float		spercent;
 
 	if (max != 0)
-		percent = point.h / max;
+		fpercent = point.h / max;
 	else
-		percent = 1;
-	color.r = percent * final.r;
-	color.g = percent * final.g;
-	color.b = percent * final.b;
+		fpercent = 1;
+	color.r = fpercent * fin.r + (1 - fpercent) * st.r;
+	color.g = fpercent * fin.g + (1 - fpercent) * st.g;
+	color.b = fpercent * fin.b + (1 - fpercent) * st.b;
 	color = rgb_calc(color, ADD);
-	if (point.h == 0)
-		return (final);
+
 	return (color); //aquiaquiaqui el porcentaje esta mal.
 }
 
@@ -97,16 +97,16 @@ int	colors(t_coord point, t_coord next, int i, int max)
 	t_colors	color;
 	int			len;
 
-	final.all = BLUE;
+	final.all = YELLOW;
 	final = rgb_calc(final, DIVIDE);
-	start.all = YELLOW;
+	start.all = BLUE;
 	start = rgb_calc(start, DIVIDE);
 	if (fabs(point.x - next.x) > fabs(point.y - next.y))
 		len = fabs(point.x - next.x);
 	else
 		len = fabs(point.y - next.y);
-	relstart = relative_color(max, point, final);
-	relfinal = relative_color(max, next, final);
+	relstart = relative_color(max, point, final, start);
+	relfinal = relative_color(max, next, final, start);
 	color = gradient(relfinal, relstart, len, i);
 	return (color.all);
 }

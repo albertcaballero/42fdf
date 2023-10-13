@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/13 17:40:45 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/14 00:19:04 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_coord	init_coordinates(char *splitted, t_coord value, t_coord mapdim, int i)
 	value.y = (float)(i / (int)mapdim.x) *2;
 	value.z = ft_atoi(splitted);
 	value.h = value.z;
-	value.z /= 2; //DIVIDIR POR LA DISTANCIA ENTRE MAX Y MIN
+	value.z /= 2;
 	return (value);
 }
 
