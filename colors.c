@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:53:21 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/13 17:07:28 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/13 17:41:58 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,15 @@ t_colors	relative_color(int max, t_coord point, t_colors final)
 	color = rgb_calc(color, ADD);
 	if (point.h == 0)
 		return (final);
-	return (color);
+	return (color); //aquiaquiaqui el porcentaje esta mal.
 }
 
 int	colors(t_coord point, t_coord next, int i, int max)
 {
 	t_colors	final;
 	t_colors	start;
+	t_colors	relstart;
+	t_colors	relfinal;
 	t_colors	color;
 	int			len;
 
@@ -99,13 +101,12 @@ int	colors(t_coord point, t_coord next, int i, int max)
 	final = rgb_calc(final, DIVIDE);
 	start.all = YELLOW;
 	start = rgb_calc(start, DIVIDE);
-	len = fabs(point.h - next.h);
-	// if (len == 0)
-	// 	color = relative_color(max, point, final);
-	// else
-	color = gradient(final, start, len, i);
-	//get color point (based on height)
-	// get color next (based on height)
-	//gradient between both colors omg so stupid
+	if (fabs(point.x - next.x) > fabs(point.y - next.y))
+		len = fabs(point.x - next.x);
+	else
+		len = fabs(point.y - next.y);
+	relstart = relative_color(max, point, final);
+	relfinal = relative_color(max, next, final);
+	color = gradient(relfinal, relstart, len, i);
 	return (color.all);
 }

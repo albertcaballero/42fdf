@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:42:40 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/13 17:06:20 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/13 17:18:02 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,6 @@ int	register_hooks(int key, t_vars *mlx)
 	transf = init_input(transf);
 	ft_printf("%i\n", key);
 	if (key == 53)
-		exit(EXIT_SUCCESS);
+		exit(EXIT_SUCCESS); //freeee
 	return (0);
 }
