@@ -6,7 +6,7 @@
 /*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:06:19 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/14 01:07:03 by albert           ###   ########.fr       */
+/*   Updated: 2023/10/14 21:43:04 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,15 @@ t_coord	translation(t_coord coord, t_input input)
 	return (coord);
 }
 
-t_coord	start_draw_coord(t_coord point)
+t_coord	start_draw_coord(t_coord point, t_input input)
 {
 	t_coord	copy;
-	t_input	initial;
 
 	copy = point;
-	initial = init_input(initial);
-	copy.z /= initial.height;
-	copy = rotation(copy, initial);
-	copy = scale(copy, initial);
-	copy = translation(copy, initial);
+	input = init_input(input);
+	copy.z /= input.height;
+	copy = rotation(copy, input);
+	copy = scale(copy, input);
+	copy = translation(copy, input);
 	return (copy);
 }

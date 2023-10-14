@@ -6,7 +6,7 @@
 /*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:42:40 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/14 01:05:29 by albert           ###   ########.fr       */
+/*   Updated: 2023/10/14 21:52:01 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,25 +57,23 @@ t_input	movement_hooks(int key, t_input transf)
 	else if (key == V)
 		transf.zoom -= 10;
 	else if (key == B)
-		transf.mvx += 10;
+		transf.zoom += 10;
 	return (transf);
 }
 
-int	register_hooks(int key, t_vars *mlx)
+int	register_hooks(int key, t_input input)
 {
-	t_input	transf;
-
-	transf = init_input(transf);
 	ft_printf("%i\n", key);
 	if (key == ESC)
 	{
 		//FREE ALL
 		exit(EXIT_SUCCESS);
 	}
-	if (key == K || key == L || key == I || key ==  M || key == U || key == O)
-		transf = rotation_hooks(key, transf);
-	if (key == UP || key == DOWN || key == LEFT || key == RIGHT || key == V || key == B)
-		transf = movement_hooks(key, transf);
-	//destroy window, redraw window
+	else if (key == K || key == L || key == I || key ==  M || key == U || key == O)
+		input = rotation_hooks(key, input);
+	else if (key == UP || key == DOWN || key == LEFT || key == RIGHT || key == V || key == B)
+		input = movement_hooks(key, input);
+	else
+		return (0);
 	return (0);
 }

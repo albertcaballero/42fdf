@@ -6,7 +6,7 @@
 /*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/14 00:47:06 by albert           ###   ########.fr       */
+/*   Updated: 2023/10/14 21:52:20 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,6 @@
 # include <math.h>
 # include <stdlib.h>
 
-typedef struct s_vars
-{
-	void	*mlx;
-	void	*win;
-}	t_vars;
-
 typedef struct s_dimensions
 {
 	float	y;
@@ -91,6 +85,12 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
+typedef struct s_vars
+{
+	void	*mlx;
+	void	*win;
+}	t_vars;
+
 typedef struct s_input
 {
 	int	zoom;
@@ -107,18 +107,18 @@ int		ft_printf(const char *str, ...);
 char	*get_next_line(int fd);
 int		ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);
-void	grid(t_data *img, t_coord win, t_coord *values);
+void	grid(t_data *img, t_coord win, t_coord *values, t_input input);
 void	ft_free(char *gnline, char **splited);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		max_value(t_coord *values, t_coord map, int flag);
 int		colors(t_coord point, t_coord next, int i, int max);
-t_coord	start_draw_coord(t_coord point);
+t_coord	start_draw_coord(t_coord point, t_input input);
 int		map_length(char	*line);
 t_coord	scale(t_coord coord, t_input input);
 t_coord	translation(t_coord coord, t_input input);
 t_coord	rotation(t_coord coord, t_input input);
 void	clear_screen(t_data *img);
-int		register_hooks (int key, t_vars *mlx);
+int		register_hooks (int key, t_input input);
 t_input	init_input(t_input inp);
 
 #endif

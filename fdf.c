@@ -6,7 +6,7 @@
 /*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/14 00:19:04 by albert           ###   ########.fr       */
+/*   Updated: 2023/10/14 21:53:47 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ t_coord	init_coordinates(char *splitted, t_coord value, t_coord mapdim, int i)
 	value.y = (float)(i / (int)mapdim.x) *2;
 	value.z = ft_atoi(splitted);
 	value.h = value.z;
-	value.z /= 2;
 	return (value);
 }
 
@@ -92,6 +91,7 @@ int	main(int argc, char **argv)
 	t_vars	mlx;
 	t_data	img;
 	t_coord	*map_values;
+	t_input	input;
 
 	if (argc < 2)
 		return (0);
@@ -103,10 +103,12 @@ int	main(int argc, char **argv)
 	mlx.win = mlx_new_window(mlx.mlx, WIN_W, WIN_H, "FDF");
 	img.img = mlx_new_image(mlx.mlx, WIN_W, WIN_H);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.line_length, &img.endian);
-	grid(&img, map, map_values);
+	input = init_input(input);
+	mlx_key_hook(mlx.win, register_hooks, &input);
+	grid(&img, map, map_values, input);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, img.img, 0, 0);
-	mlx_key_hook(mlx.win, register_hooks, &mlx);
 	mlx_loop(mlx.mlx);
 //NO ESTAS COMPILANDO CONFLAGs EN MAKEFILE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//falta cerrar si click red X
 	return (0); 
 }

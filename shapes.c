@@ -6,7 +6,7 @@
 /*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/14 00:27:25 by albert           ###   ########.fr       */
+/*   Updated: 2023/10/14 21:43:33 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	line(t_data *img, t_coord start, t_coord end, int max)
 	}
 }
 
-void	grid(t_data *img, t_coord win, t_coord *values)
+void	grid(t_data *img, t_coord win, t_coord *values, t_input input)
 {
 	t_coord	point;
 	t_coord	next;
@@ -94,13 +94,13 @@ void	grid(t_data *img, t_coord win, t_coord *values)
 	max = max_value(values, win, MAX);
 	while (i < win.x * win.y)
 	{
-		point = start_draw_coord(values[i]);
-		next = start_draw_coord(values[i + 1]);
+		point = start_draw_coord(values[i], input);
+		next = start_draw_coord(values[i + 1], input);
 		if ((i + 1) % (int)win.x != 0)
 			line(img, point, next, max);
 		if ((i) / (int)(win.x) + 1 < win.y)
 		{
-			lower = start_draw_coord(values[i + (int)win.x]);
+			lower = start_draw_coord(values[i + (int)win.x], input);
 			line(img, point, lower, max);
 		}
 		(void) lower;
