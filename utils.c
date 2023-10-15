@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:18:47 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/12 19:45:39 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/10/15 16:53:23 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,12 @@ void	clear_screen(t_data *img)
 		}
 		y++;
 	}
+}
+
+int	close_program(t_mlx *mlx)
+{
+	mlx_destroy_image(mlx->mlx, mlx->img.img);
+	mlx_destroy_window(mlx->mlx, mlx->win);
+	exit(EXIT_SUCCESS);
+	return (0);
 }

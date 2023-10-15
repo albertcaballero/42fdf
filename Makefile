@@ -23,8 +23,7 @@ OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 all: temp make_lib make_mlx $(NAME)
 
 $(NAME): $(OBJS) $(LIB) $(MLX)
-	$(C) -L $(LIBFT) -lft -o $@ $^ -framework OpenGL -framework AppKit -lm -L $(DIR_MLX) -lmlx 
-	@#-fsanitize="address,undefined" -g
+	$(C) $(FLAGS) -L $(LIBFT) -lft -o $@ $^ -framework OpenGL -framework AppKit -lm -L $(DIR_MLX) -lmlx
 	@echo "$(PURPLE)=====FDF COMPILED=====$(NC)"
 
 make_lib:

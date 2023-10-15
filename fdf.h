@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/14 21:52:20 by albert           ###   ########.fr       */
+/*   Updated: 2023/10/15 16:53:36 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,22 @@
 # define FAN 0xa80874
 
 # define ESC 53
-# define K 40
-# define L 37
-# define I 34
-# define M 46
-# define U 32
-# define O 31
+# define K_4 86
+# define K_6 88
+# define K_8 91
+# define K_2 84
+# define K_7 89
+# define K_9 92
 # define LEFT 123
 # define RIGHT 124
 # define DOWN 125
 # define UP 126
-# define V 9
-# define B 11
+# define K_MEN 78
+# define K_PLUS 69
+# define DIV 75
+# define MULT 67
+
+# define CLOSE 17
 
 # define ADD 1
 # define DIVIDE 2
@@ -53,13 +57,6 @@
 # include <math.h>
 # include <stdlib.h>
 
-typedef struct s_dimensions
-{
-	float	y;
-	float	x;
-	float	z;
-}	t_dim;
-
 typedef struct s_coordinates
 {
 	float	y;
@@ -67,6 +64,16 @@ typedef struct s_coordinates
 	float	z;
 	float	h;
 }	t_coord;
+
+typedef struct s_map
+{
+	float	x;
+	float	y;
+	char	*argv;
+	int		fd;
+	int		max;
+	int		min;
+}	t_map;
 
 typedef struct s_colors
 {
@@ -85,12 +92,6 @@ typedef struct s_data
 	int		endian;
 }	t_data;
 
-typedef struct s_vars
-{
-	void	*mlx;
-	void	*win;
-}	t_vars;
-
 typedef struct s_input
 {
 	int	zoom;
@@ -102,23 +103,34 @@ typedef struct s_input
 	int	height;
 }	t_input;
 
+typedef struct s_mlx
+{
+	void	*mlx;
+	void	*win;
+	t_map	map;
+	t_data	img;
+	t_input	keys;
+}	t_mlx;
+
 size_t	ft_strlen(const char *str);
 int		ft_printf(const char *str, ...);
 char	*get_next_line(int fd);
 int		ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);
-void	grid(t_data *img, t_coord win, t_coord *values, t_input input);
+void	grid(t_mlx *mlx, t_map map);
 void	ft_free(char *gnline, char **splited);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
-int		max_value(t_coord *values, t_coord map, int flag);
-int		colors(t_coord point, t_coord next, int i, int max);
+int		max_value(t_coord *values, t_map map, int flag);
+int		colors(t_coord point, t_coord next, int i, t_map map);
 t_coord	start_draw_coord(t_coord point, t_input input);
 int		map_length(char	*line);
 t_coord	scale(t_coord coord, t_input input);
 t_coord	translation(t_coord coord, t_input input);
 t_coord	rotation(t_coord coord, t_input input);
 void	clear_screen(t_data *img);
-int		register_hooks (int key, t_input input);
+int		register_hooks(int key, t_mlx *mlx);
 t_input	init_input(t_input inp);
+int		close_program(t_mlx *mlx);
+t_coord	*read_map(t_map map, int i);
 
 #endif

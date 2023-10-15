@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:42:40 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/14 21:52:01 by albert           ###   ########.fr       */
+/*   Updated: 2023/10/15 16:28:05 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 t_input	init_input(t_input inp)
 {
 	inp.height = 1;
-	if (inp.height == 0)
-		inp.height++;
 	inp.mvx = 0;
 	inp.mvy = 0;
 	inp.rotx = 0;
@@ -28,52 +26,62 @@ t_input	init_input(t_input inp)
 
 t_input	rotation_hooks(int key, t_input transf)
 {
-	if (key == K)
-		transf.rotz += 10;
-	else if (key == L)
+	if (key == K_4)
 		transf.rotz -= 10;
-	else if (key == I)
+	else if (key == K_6)
+		transf.rotz += 10;
+	else if (key == K_8)
 		transf.rotx += 10;
-	else if (key == M)
+	else if (key == K_2)
 		transf.rotx -= 10;
-	else if (key == U)
-		transf.roty += 10;
-	else if (key == O)
+	else if (key == K_7)
 		transf.roty -= 10;
-	//add for height + -
+	else if (key == K_9)
+		transf.roty += 10;
 	return (transf);
 }
 
 t_input	movement_hooks(int key, t_input transf)
 {
 	if (key == UP)
-		transf.mvy -= 10;
+		transf.mvy -= 5;
 	else if (key == DOWN)
-		transf.mvy += 10;
+		transf.mvy += 5;
 	else if (key == LEFT)
-		transf.mvx -= 10;
+		transf.mvx -= 5;
 	else if (key == RIGHT)
-		transf.mvx += 10;
-	else if (key == V)
-		transf.zoom -= 10;
-	else if (key == B)
-		transf.zoom += 10;
+		transf.mvx += 5;
 	return (transf);
 }
 
-int	register_hooks(int key, t_input input)
+t_input	zoom_hooks(int key, t_input transf)
 {
-	ft_printf("%i\n", key);
+	if (key == DIV)
+		transf.height -= 1;
+	else if (key == MULT)
+		transf.height += 1;
+	else if (key == K_MEN)
+		transf.zoom -= 5;
+	else if (key == K_PLUS)
+		transf.zoom += 5;
+	return (transf);
+}
+
+int	register_hooks(int key, t_mlx *mlx)
+{
 	if (key == ESC)
-	{
-		//FREE ALL
-		exit(EXIT_SUCCESS);
-	}
-	else if (key == K || key == L || key == I || key ==  M || key == U || key == O)
-		input = rotation_hooks(key, input);
-	else if (key == UP || key == DOWN || key == LEFT || key == RIGHT || key == V || key == B)
-		input = movement_hooks(key, input);
+		close_program(mlx);
+	else if (key == K_2 || key == K_4 || key == K_6 \
+				|| key == K_7 || key == K_8 || key == K_9)
+		mlx->keys = rotation_hooks(key, mlx->keys);
+	else if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
+		mlx->keys = movement_hooks(key, mlx->keys);
+	else if (key == DIV || key == MULT || key == K_MEN || key == K_PLUS)
+		mlx->keys = zoom_hooks(key, mlx->keys);
 	else
 		return (0);
+	clear_screen(&mlx->img);
+	grid(mlx, mlx->map);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	return (0);
 }

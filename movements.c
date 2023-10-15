@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:06:19 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/14 21:43:04 by albert           ###   ########.fr       */
+/*   Updated: 2023/10/15 16:20:06 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_coord	rotation(t_coord coord, t_input input)
 	float	angz;
 	float	temp;
 
-	angx = (45 + input.rotx) * M_PI / 180;
+	angx = (30 + input.rotx) * M_PI / 180;
 	angy = (-30 + input.roty) * M_PI / 180;
 	angz = (30 + input.rotz) * M_PI / 180;
 	temp = coord.y;
@@ -36,15 +36,17 @@ t_coord	rotation(t_coord coord, t_input input)
 
 t_coord	scale(t_coord coord, t_input input)
 {
-	coord.x = coord.x * (10 + input.zoom);
-	coord.y = coord.y * (10 + input.zoom);
+	if (input.zoom == 0)
+		input.zoom++;
+	coord.x = coord.x * (5 + input.zoom);
+	coord.y = coord.y * (5 + input.zoom);
 	return (coord);
 }
 
 t_coord	translation(t_coord coord, t_input input)
 {
 	coord.x += 300 + input.mvx;
-	coord.y += 400 + input.mvy;
+	coord.y += 300 + input.mvy;
 	return (coord);
 }
 
@@ -53,7 +55,8 @@ t_coord	start_draw_coord(t_coord point, t_input input)
 	t_coord	copy;
 
 	copy = point;
-	input = init_input(input);
+	if (input.height == 0)
+		input.height++;
 	copy.z /= input.height;
 	copy = rotation(copy, input);
 	copy = scale(copy, input);
