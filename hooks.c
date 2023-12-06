@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:42:40 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/15 16:28:05 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/12/07 00:03:40 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	register_hooks(int key, t_mlx *mlx)
 	else
 		return (0);
 	clear_screen(&mlx->img);
-	grid(mlx, mlx->map);
+	grid(mlx, mlx->map); //hola????? estas llamando a la funcion 2 veces??????
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	return (0);
 }

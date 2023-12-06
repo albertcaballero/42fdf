@@ -14,13 +14,12 @@ FLAGS = -Wall -Wextra -Werror -O3
 LIBFT = libft
 DIR_O = temp
 DIR_MLX = minilibx
-HEADERS = includes
 
 SOURCES = fdf.c shapes.c utils.c colors.c movements.c hooks.c
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 
-all: temp make_lib make_mlx $(NAME)
+all: tmp make_lib make_mlx $(NAME)
 
 $(NAME): $(OBJS) $(LIB) $(MLX)
 	$(C) $(FLAGS) -L $(LIBFT) -lft -o $@ $^ -framework OpenGL -framework AppKit -lm -L $(DIR_MLX) -lmlx
@@ -32,23 +31,25 @@ make_lib:
 make_mlx:
 	@$(MAKE) -C $(DIR_MLX) --no-print-directory
 
-temp:
-	@mkdir -p temp
+tmp:
+	@mkdir -p $(DIR_O)
 
-$(DIR_O)/%.o: %.c $(NAME).h $(LIB) $(MLX)
-	$(C) -I $(HEADERS) -c -o $@ $<
+$(DIR_O)/%.o: %.c $(NAME).h $(LIB) $(MLX) Makefile
+	$(C) -c -o $@ $<
 
 clean:
 	@rm -f $(OBJS)
-	@make clean -C $(LIBFT) --no-print-directory
-	@make clean -C $(DIR_MLX) --no-print-directory
+	@$(MAKE) clean -C $(LIBFT) --no-print-directory
+	@$(MAKE) clean -C $(DIR_MLX) --no-print-directory
 	@rm -rf $(DIR_O)
 	@echo "$(RED)FDF OBJ DELETED$(NC)"
 
 fclean: clean
 	@rm -f $(NAME)
-	@make fclean -C $(LIBFT) --no-print-directory
-	@make fclean -C $(DIR_MLX) --no-print-directory
+	@$(MAKE) fclean -C $(LIBFT) --no-print-directory
+	@$(MAKE) fclean -C $(DIR_MLX) --no-print-directory
 	@echo "$(RED)FDF ALL DELETED$(NC)"
 
 re: fclean all
+
+.PHONY: re clean fclean all tmp make_lib make_mlx

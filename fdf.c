@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/15 16:53:50 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/12/07 00:04:10 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_map	win_size(t_map map)
 }
 
 t_coord	init_coordinates(char *splitted, t_coord value, t_map mapdim, int i)
-{
+{ //also find the center and center the rotation point
 	value.x = (float)(i % (int)mapdim.x) *2;
 	value.y = (float)(i / (int)mapdim.x) *2;
 	value.z = ft_atoi(splitted);
@@ -67,7 +67,7 @@ t_coord	*read_map(t_map map, int i)
 		j = -1;
 		splited = ft_split(line, ' ');
 		while (splited[++j] != NULL)
-		{
+		{ //first point of optimization is not calling a function on a loop, do the loop in the funct
 			values[i] = init_coordinates(splited[j], values[i], map, i);
 			i++;
 		}
@@ -81,11 +81,11 @@ int	main(int argc, char **argv)
 {
 	t_mlx	mlx;
 
-	if (argc < 2)
-		return (0);
+	if (argc != 2)
+		return (write(2, "invalid params", 15), 1);
 	mlx.map.argv = argv[1];
 	mlx.map = win_size(mlx.map);
-	if (mlx.map.x == 0)
+	if (mlx.map.x == 0) //you have 1 leak when map fails
 		return (write(2, "invalid map", 11));
 	mlx.mlx = mlx_init();
 	mlx.win = mlx_new_window(mlx.mlx, WIN_W, WIN_H, "FDF");
@@ -94,7 +94,7 @@ int	main(int argc, char **argv)
 		&mlx.img.line_length, &mlx.img.endian);
 	mlx.keys = init_input(mlx.keys);
 	mlx_key_hook(mlx.win, register_hooks, &mlx);
-	grid(&mlx, mlx.map);
+	grid(&mlx, mlx.map); //you call grid() twice, here and on register_hooks
 	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img.img, 0, 0);
 	mlx_hook(mlx.win, CLOSE, 0, close_program, (&mlx));
 	mlx_loop(mlx.mlx);

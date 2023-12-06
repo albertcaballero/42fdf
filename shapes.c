@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/15 16:51:30 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/12/07 00:00:43 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,12 @@ void	grid(t_mlx *mlx, t_map map)
 			lower = start_draw_coord(values[i + (int)map.x], mlx->keys);
 			line(&mlx->img, point, lower, map);
 		}
-		(void) lower;
+		// (void) lower; //ni idea de por que esta linea esta aqui
 		i++;
 	}
 	free(values);
+	//you're searching for start_draw_coord of each point 3 times, do that in a single matrix, and calculate it entirely
+	//same as you have a read_map() or init_coordinates()
+
+	//also having 4 fcking functions to draw a single fckng line maybe is not the best way, but idk not an expert
 }
