@@ -6,7 +6,7 @@
 /*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/07 00:00:43 by albert           ###   ########.fr       */
+/*   Updated: 2023/12/08 00:21:24 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,35 +93,38 @@ void	line(t_data *img, t_coord start, t_coord end, t_map map)
 		vert_frontline(img, start, end, map);
 }
 
-void	grid(t_mlx *mlx, t_map map)
+t_coord	*update_coordinate_grid(t_coord *initial, long mapsz, t_input keys)
 {
-	t_coord	point;
-	t_coord	next;
-	t_coord	lower;
-	t_coord	*values;
+	t_coord *values;
 	int		i;
 
 	i = 0;
-	values = read_map(map, 0);
-	map.max = max_value(values, map, MAX);
-	map.min = max_value(values, map, MIN);
-	while (i < map.x * map.y)
+	values = malloc(sizeof(t_coord) * mapsz);
+	while (i < mapsz)
 	{
-		point = start_draw_coord(values[i], mlx->keys);
-		next = start_draw_coord(values[i + 1], mlx->keys);
-		if ((i + 1) % (int)map.x != 0)
-			line(&mlx->img, point, next, map);
-		if ((i) / (int)(map.x) + 1 < map.y)
-		{
-			lower = start_draw_coord(values[i + (int)map.x], mlx->keys);
-			line(&mlx->img, point, lower, map);
-		}
-		// (void) lower; //ni idea de por que esta linea esta aqui
+		values[i] = start_draw_coord(initial[i], keys);
 		i++;
 	}
-	free(values);
-	//you're searching for start_draw_coord of each point 3 times, do that in a single matrix, and calculate it entirely
-	//same as you have a read_map() or init_coordinates()
+	return (values);
+}
 
-	//also having 4 fcking functions to draw a single fckng line maybe is not the best way, but idk not an expert
+void	grid(t_mlx *mlx, t_map map)
+{
+	t_coord *up_val;
+	int		i;
+
+	i = 0;
+	map.max = max_value(mlx->ini, map, MAX); //esto fuera al main
+	map.min = max_value(mlx->ini, map, MIN); //esto tb
+	up_val = update_coordinate_grid(mlx->ini, map.count, mlx->keys);
+	while (i < map.count)
+	{
+		if ((i + 1) % (int)map.x != 0)
+			line(&mlx->img, up_val[i], up_val[i + 1], map);
+		if (i / (int)(map.x) + 1 < map.y)
+			line(&mlx->img, up_val[i], up_val[i + (int)map.x], map);
+		i++;
+	}
+	free(up_val);
+	//having 4 fcking functions to draw a single fckng line maybe is not the best way, but idk not an expert
 }

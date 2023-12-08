@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/15 16:53:36 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/12/07 22:33:03 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_map
 {
 	float	x;
 	float	y;
+	long	count;
 	char	*argv;
 	int		fd;
 	int		max;
@@ -110,6 +111,7 @@ typedef struct s_mlx
 	t_map	map;
 	t_data	img;
 	t_input	keys;
+	t_coord	*ini;
 }	t_mlx;
 
 size_t	ft_strlen(const char *str);
@@ -131,6 +133,6 @@ void	clear_screen(t_data *img);
 int		register_hooks(int key, t_mlx *mlx);
 t_input	init_input(t_input inp);
 int		close_program(t_mlx *mlx);
-t_coord	*read_map(t_map map, int i);
+t_coord	*read_map(t_map *map, int i);
 
 #endif

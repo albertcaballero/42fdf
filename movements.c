@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
+/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:06:19 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/15 16:20:06 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/12/07 22:29:37 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_coord	translation(t_coord coord, t_input input)
 }
 
 t_coord	start_draw_coord(t_coord point, t_input input)
-{
+{ //maybe this could take a pointer instead of making a copy :)
 	t_coord	copy;
 
 	copy = point;
