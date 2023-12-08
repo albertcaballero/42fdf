@@ -6,7 +6,7 @@
 /*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/07 22:33:03 by albert           ###   ########.fr       */
+/*   Updated: 2023/12/08 01:21:17 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,11 @@ void	ft_free(char *gnline, char **splited);
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color);
 int		max_value(t_coord *values, t_map map, int flag);
 int		colors(t_coord point, t_coord next, int i, t_map map);
-t_coord	start_draw_coord(t_coord point, t_input input);
+void	start_draw_coord(t_coord *point, t_coord ini, t_input input);
 int		map_length(char	*line);
-t_coord	scale(t_coord coord, t_input input);
-t_coord	translation(t_coord coord, t_input input);
-t_coord	rotation(t_coord coord, t_input input);
+void	scale(t_coord *coord, t_input input);
+void	translation(t_coord *coord, t_input input);
+void	rotation(t_coord *coord, t_input input);
 void	clear_screen(t_data *img);
 int		register_hooks(int key, t_mlx *mlx);
 t_input	init_input(t_input inp);

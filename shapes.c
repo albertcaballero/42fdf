@@ -6,12 +6,12 @@
 /*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/08 00:21:24 by albert           ###   ########.fr       */
+/*   Updated: 2023/12/08 01:28:04 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
+//these line functs can still be optimized
 void	horiz_backline(t_data *img, t_coord start, t_coord end, t_map map)
 {
 	float	ix;
@@ -102,7 +102,7 @@ t_coord	*update_coordinate_grid(t_coord *initial, long mapsz, t_input keys)
 	values = malloc(sizeof(t_coord) * mapsz);
 	while (i < mapsz)
 	{
-		values[i] = start_draw_coord(initial[i], keys);
+		start_draw_coord(&values[i], initial[i], keys);
 		i++;
 	}
 	return (values);
@@ -110,21 +110,19 @@ t_coord	*update_coordinate_grid(t_coord *initial, long mapsz, t_input keys)
 
 void	grid(t_mlx *mlx, t_map map)
 {
-	t_coord *up_val;
+	t_coord *val;
 	int		i;
 
 	i = 0;
-	map.max = max_value(mlx->ini, map, MAX); //esto fuera al main
-	map.min = max_value(mlx->ini, map, MIN); //esto tb
-	up_val = update_coordinate_grid(mlx->ini, map.count, mlx->keys);
+	val = update_coordinate_grid(mlx->ini, map.count, mlx->keys);
+	//still optimizable if i stop calculating once it goes out of the screen
 	while (i < map.count)
 	{
 		if ((i + 1) % (int)map.x != 0)
-			line(&mlx->img, up_val[i], up_val[i + 1], map);
+			line(&mlx->img, val[i], val[i + 1], map);
 		if (i / (int)(map.x) + 1 < map.y)
-			line(&mlx->img, up_val[i], up_val[i + (int)map.x], map);
+			line(&mlx->img, val[i], val[i + (int)map.x], map);
 		i++;
 	}
-	free(up_val);
-	//having 4 fcking functions to draw a single fckng line maybe is not the best way, but idk not an expert
+	free(val);
 }

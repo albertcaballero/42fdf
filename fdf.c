@@ -6,7 +6,7 @@
 /*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/08 01:01:08 by albert           ###   ########.fr       */
+/*   Updated: 2023/12/08 01:29:07 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,9 @@ int	main(int argc, char **argv)
 		return (write(2, "invalid map", 11));
 	mlx.map.count = mlx.map.x * mlx.map.y;
 	ft_printf("\tLoading map, please wait...\n");
-	mlx.ini = read_map(&mlx.map, 0); //needs to also read the map color if included
+	mlx.ini = read_map(&mlx.map, 0); 
+	mlx.map.max = max_value(mlx.ini, mlx.map, MAX);
+	mlx.map.min = max_value(mlx.ini, mlx.map, MIN);
 	ft_printf("\tDONE!!\n");
 	mlx.mlx = mlx_init();
 	mlx.win = mlx_new_window(mlx.mlx, WIN_W, WIN_H, "FDF");
@@ -116,3 +118,10 @@ int	main(int argc, char **argv)
 	mlx_loop(mlx.mlx);
 	return (0);
 }
+
+//needs to also read the map color if included
+//another keyhook to toggle between colors
+//keeping a key pressed should work too
+//also find the center and center the rotation point
+//bresenham line functs can still be optimized
+//still optimizable if i stop calculating once it goes out of the screen
