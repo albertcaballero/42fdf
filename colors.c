@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 15:53:21 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/15 16:20:32 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/12/09 13:24:03 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	max_value(t_coord *values, t_map map, int flag)
 	max = values[0].h;
 	if (flag == MAX)
 	{
-		while (i < map.y * map.x)
+		while (i < map.count)
 		{
 			if (values[i].h > max)
 				max = values[i].h;
@@ -30,7 +30,7 @@ int	max_value(t_coord *values, t_map map, int flag)
 	}
 	else if (flag == MIN)
 	{
-		while (i < map.y * map.x)
+		while (i < map.count)
 		{
 			if (values[i].h < max)
 				max = values[i].h;
@@ -94,9 +94,15 @@ int	colors(t_coord point, t_coord next, int i, t_map map)
 	t_colors	relfinal;
 	int			len;
 
-	final.all = YELLOW;
+	if (point.clr == 0)
+		final.all = CYAN;
+	else
+		final.all = point.clr;
 	final = rgb_calc(final, DIVIDE);
-	start.all = BLUE;
+	if (next.clr == 0)
+		start.all = RED;
+	else
+		start.all = point.clr;
 	start = rgb_calc(start, DIVIDE);
 	if (fabs(point.x - next.x) > fabs(point.y - next.y))
 		len = fabs(point.x - next.x);

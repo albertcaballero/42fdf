@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:18:47 by alcaball          #+#    #+#             */
-/*   Updated: 2023/10/15 16:53:23 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/12/09 12:02:39 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 
 int	map_length(char	*line)
 {
-	int	i;
-	int	j;
+	int		i;
+	char	*tmp;
+	char	**spl;
 
 	i = 0;
-	j = 0;
-	if (!line)
+	if (!line || line == NULL)
 		return (0);
-	while (line[i] != 0 && line[i] != 10)
-	{
-		if (line[i] != 32 && line[i + 1] == 32)
-			j++;
+	tmp = ft_strtrim(line, "\n");
+	spl = ft_split(tmp, 32);
+	while (spl[i] != NULL)
 		i++;
-	}
-	j++;
-	return (j);
+	ft_free(tmp, spl);
+	return (i);
 }
 
 void	ft_free(char *gnline, char **splited)
@@ -77,6 +75,7 @@ void	clear_screen(t_data *img)
 
 int	close_program(t_mlx *mlx)
 {
+	free(mlx->ini);
 	mlx_destroy_image(mlx->mlx, mlx->img.img);
 	mlx_destroy_window(mlx->mlx, mlx->win);
 	exit(EXIT_SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   shapes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/09 01:03:18 by albert           ###   ########.fr       */
+/*   Updated: 2023/12/09 12:36:06 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,7 @@ void	grid(t_mlx *mlx, t_map map)
 	val = update_coordinate_grid(mlx->ini, map.count, mlx->keys);
 	while (i < map.count)
 	{
-		//optimizable if i stop drawing once it goes out of the screen
-		if ((i + 1) % (int)map.x != 0)
+		if ((i + 1) % (int)map.x != 0 && mlx->keys.color == 1)
 			line(&mlx->img, val[i], val[i + 1], map);
 		if (i / (int)(map.x) + 1 < map.y)
 			line(&mlx->img, val[i], val[i + (int)map.x], map);

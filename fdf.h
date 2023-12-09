@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/09 00:31:55 by albert           ###   ########.fr       */
+/*   Updated: 2023/12/09 13:22:48 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ typedef struct s_mlx
 size_t	ft_strlen(const char *str);
 char	*ft_strchr(const char *s, int c);
 int		ft_printf(const char *str, ...);
+char	*ft_strtrim(char const *s1, char const *set);
 char	*get_next_line(int fd);
 int		ft_atoi(const char *str);
 char	**ft_split(char const *s, char c);

@@ -6,14 +6,14 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 13:30:50 by alcaball          #+#    #+#             */
-/*   Updated: 2023/07/12 13:40:45 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/12/09 11:34:03 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 1
+#  define BUFFER_SIZE 300
 # endif
 
 # include <unistd.h>

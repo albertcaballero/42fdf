@@ -3,50 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:18:47 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/08 23:36:12 by albert           ###   ########.fr       */
+/*   Updated: 2023/12/09 13:42:55 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	get_atoib_digit(char c)
-{
-	if (c >= '0' && c <= '9' && c <= 'f')
-		return (c - '0');
-	else if (c >= 'a' && c <= 'f' && c <= 'f')
-		return (10 + c - 'a');
-	else
-		return (-1);
-}
-
 int	ft_atoi_base(const char *str)
 {
 	int	i;
-	int	numb;
+	int	result;
 
-	i = 0;
-	numb = 0;
+	i = 3;
+	result = 0;
 	if (str == NULL)
 		return (0);
-	i += 3;
-	while ((str[i] >= 48 && str[i] <= 57) || (str[i] >= 'a' && str[i] <= 'f'))
+	while (str[i] != 0)
 	{
-		numb = (numb * 16 + (str[i] - get_atoib_digit(str[i])));
+		result *= 16;
+		if (str[i] >= '0' && str[i] <= '9')
+			result += str[i] - '0';
+		else if (str[i] >= 'A' && str[i] <= 'Z')
+			result += str[i] - '7';
+		else if (str[i] >= 'a' && str[i] <= 'z')
+			result += str[i] - 'W';
 		i++;
 	}
-	return (numb);
+	return (result);
 }
 
 void	print_movements(void)
 {
 	ft_printf("Move: W, A, S, D\n");
-	ft_printf("Zoom: +, -\n");
+	ft_printf("Zoom: Z, X\n");
 	ft_printf("Rotate X: UP, DOWN\n");
-	ft_printf("Rotate Y: 7, 8\n");
+	ft_printf("Rotate Y: ., ,\n");
 	ft_printf("Rotate Z: LEFT, RIGHT\n");
 	ft_printf("Scale: *, /\n");
-	ft_printf("Color: SPACE\n");
+	ft_printf("Lines: SPACE\n");
 }

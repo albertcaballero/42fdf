@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/09 01:03:56 by albert           ###   ########.fr       */
+/*   Updated: 2023/12/09 13:22:56 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void free_and_close(char *line, int	fd)
+void	free_and_close(char *line, int fd)
 {
-	if (line)
+	if (line != NULL)
 		free (line);
 	close (fd);
 }
@@ -23,10 +23,12 @@ void	win_size(t_map *map)
 {
 	int		columns;
 	char	*line;
+	int		len;
 
 	map->fd = open(map->argv, R_OK);
+	len = 0;
 	if (map->fd < 0)
-		return ;
+		return (map->x = 0, (void)len);
 	line = get_next_line(map->fd);
 	map->x = map_length(line);
 	if (map->x == 0)
@@ -36,8 +38,9 @@ void	win_size(t_map *map)
 	{
 		free (line);
 		line = get_next_line(map->fd);
-		if (map_length(line) != map->x && map_length(line) != 0)
-			return (free_and_close(line, map->fd));
+		len = map_length(line);
+		if (len != map->x && len != 0)
+			return (map->x = 0, free_and_close(line, map->fd));
 		columns++;
 	}
 	free(line);
@@ -47,9 +50,9 @@ void	win_size(t_map *map)
 
 void	init_coordinates(char *line, t_coord *value, t_map map, int col)
 {
-	int i;
-	char **splited;
-	int	mapx;
+	int		i;
+	char	**splited;
+	int		mapx;
 
 	i = 0;
 	mapx = (int)map.x;
@@ -62,9 +65,10 @@ void	init_coordinates(char *line, t_coord *value, t_map map, int col)
 		value[i + col * mapx].y = (float)(col - (int)map.y / 2) * 2;
 		value[i + col * mapx].z = ft_atoi(splited[i]);
 		value[i + col * mapx].h = value[i + col * mapx].z;
-		value[i + col * mapx].clr = ft_atoi_base(ft_strchr(splited[i], ',')); //ns si lo hace bien
+		value[i + col * mapx].clr = ft_atoi_base(ft_strchr(splited[i], ','));
 		i++;
 	}
+	ft_free(NULL, splited);
 }
 
 t_coord	*read_map(t_map *map, int i)
@@ -90,7 +94,7 @@ t_coord	*read_map(t_map *map, int i)
 		ft_printf("\tLoading map, please wait... %i/%i\r", col, (int)map->y);
 	}
 	ft_printf("\33[2K");
-	return (free(line), close(map->fd), values);
+	return (free_and_close(line, map->fd), values);
 }
 
 int	main(int argc, char **argv)
@@ -101,10 +105,10 @@ int	main(int argc, char **argv)
 		return (write(2, "invalid params", 15), 1);
 	mlx.map.argv = argv[1];
 	win_size(&mlx.map);
-	if (mlx.map.x == 0) //MAYBE you have 1 leak when map fails
-		return (write(2, "invalid map", 11));
+	if (mlx.map.x == 0)
+		return (write(2, "invalid map\n", 12));
 	mlx.map.count = mlx.map.x * mlx.map.y;
-	mlx.ini = read_map(&mlx.map, 0); 
+	mlx.ini = read_map(&mlx.map, 0);
 	mlx.map.max = max_value(mlx.ini, mlx.map, MAX);
 	mlx.map.min = max_value(mlx.ini, mlx.map, MIN);
 	print_movements();

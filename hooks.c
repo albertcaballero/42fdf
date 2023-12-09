@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:42:40 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/09 00:53:49 by albert           ###   ########.fr       */
+/*   Updated: 2023/12/09 14:05:19 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ t_input	rotation_hooks(int key, t_input transf)
 t_input	movement_hooks(int key, t_input transf)
 {
 	if (key == K_W)
-		transf.mvy -= 5;
+		transf.mvy -= 10;
 	else if (key == K_S)
-		transf.mvy += 5;
+		transf.mvy += 10;
 	else if (key == K_A)
-		transf.mvx -= 5;
+		transf.mvx -= 10;
 	else if (key == K_D)
-		transf.mvx += 5;
+		transf.mvx += 10;
 	return (transf);
 }
 
