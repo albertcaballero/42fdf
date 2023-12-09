@@ -6,7 +6,7 @@
 /*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 13:06:19 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/08 01:27:40 by albert           ###   ########.fr       */
+/*   Updated: 2023/12/09 00:53:18 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	scale(t_coord *coord, t_input input)
 {
 	if (input.zoom == 0)
 		input.zoom++;
-	coord->x = coord->x * (5 + input.zoom);
-	coord->y = coord->y * (5 + input.zoom);
+	coord->x = coord->x * (input.zoom);
+	coord->y = coord->y * (input.zoom);
 }
 
 void	translation(t_coord *coord, t_input input)

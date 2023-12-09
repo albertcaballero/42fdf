@@ -6,7 +6,7 @@
 /*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:42:40 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/07 00:03:40 by albert           ###   ########.fr       */
+/*   Updated: 2023/12/09 00:53:49 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,19 +20,20 @@ t_input	init_input(t_input inp)
 	inp.rotx = 0;
 	inp.roty = 0;
 	inp.rotz = 0;
-	inp.zoom = 0;
+	inp.zoom = 9;
+	inp.color = 1;
 	return (inp);
 }
 
 t_input	rotation_hooks(int key, t_input transf)
 {
-	if (key == K_4)
+	if (key == LEFT)
 		transf.rotz -= 10;
-	else if (key == K_6)
+	else if (key == RIGHT)
 		transf.rotz += 10;
-	else if (key == K_8)
+	else if (key == UP)
 		transf.rotx += 10;
-	else if (key == K_2)
+	else if (key == DOWN)
 		transf.rotx -= 10;
 	else if (key == K_7)
 		transf.roty -= 10;
@@ -43,13 +44,13 @@ t_input	rotation_hooks(int key, t_input transf)
 
 t_input	movement_hooks(int key, t_input transf)
 {
-	if (key == UP)
+	if (key == K_W)
 		transf.mvy -= 5;
-	else if (key == DOWN)
+	else if (key == K_S)
 		transf.mvy += 5;
-	else if (key == LEFT)
+	else if (key == K_A)
 		transf.mvx -= 5;
-	else if (key == RIGHT)
+	else if (key == K_D)
 		transf.mvx += 5;
 	return (transf);
 }
@@ -61,9 +62,9 @@ t_input	zoom_hooks(int key, t_input transf)
 	else if (key == MULT)
 		transf.height += 1;
 	else if (key == K_MEN)
-		transf.zoom -= 5;
+		transf.zoom -= 2;
 	else if (key == K_PLUS)
-		transf.zoom += 5;
+		transf.zoom += 2;
 	return (transf);
 }
 
@@ -71,17 +72,19 @@ int	register_hooks(int key, t_mlx *mlx)
 {
 	if (key == ESC)
 		close_program(mlx);
-	else if (key == K_2 || key == K_4 || key == K_6 \
-				|| key == K_7 || key == K_8 || key == K_9)
+	else if (key == LEFT || key == RIGHT || key == UP \
+				|| key == DOWN || key == K_7 || key == K_9)
 		mlx->keys = rotation_hooks(key, mlx->keys);
-	else if (key == UP || key == DOWN || key == LEFT || key == RIGHT)
+	else if (key == K_W || key == K_A || key == K_S || key == K_D)
 		mlx->keys = movement_hooks(key, mlx->keys);
 	else if (key == DIV || key == MULT || key == K_MEN || key == K_PLUS)
 		mlx->keys = zoom_hooks(key, mlx->keys);
+	else if (key == SPA)
+		mlx->keys.color *= -1;
 	else
 		return (0);
 	clear_screen(&mlx->img);
-	grid(mlx, mlx->map); //hola????? estas llamando a la funcion 2 veces??????
+	grid(mlx, mlx->map);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, mlx->img.img, 0, 0);
 	return (0);
 }

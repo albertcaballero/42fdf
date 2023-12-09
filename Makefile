@@ -15,7 +15,7 @@ LIBFT = libft
 DIR_O = temp
 DIR_MLX = minilibx
 
-SOURCES = fdf.c shapes.c utils.c colors.c movements.c hooks.c
+SOURCES = fdf.c shapes.c utils.c colors.c movements.c hooks.c utils2.c
 
 OBJS = $(addprefix $(DIR_O)/,$(SOURCES:.c=.o))
 

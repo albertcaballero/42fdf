@@ -6,7 +6,7 @@
 /*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/08 01:21:17 by albert           ###   ########.fr       */
+/*   Updated: 2023/12/09 00:31:55 by albert           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define WIN_H 800
 # define WIN_W 800
 
+/*========== COLORS ==========*/
 # define BLUE 0x0000FF
 # define GREEN 0x00FF00
 # define RED 0xFF0000
@@ -27,24 +28,27 @@
 # define SPRING 0x5ef38c
 # define FAN 0xa80874
 
+/*========== KEYS ==========*/
 # define ESC 53
-# define K_4 86
-# define K_6 88
-# define K_8 91
-# define K_2 84
-# define K_7 89
-# define K_9 92
+# define K_7 47
+# define K_9 44
 # define LEFT 123
 # define RIGHT 124
 # define DOWN 125
 # define UP 126
-# define K_MEN 78
-# define K_PLUS 69
+# define K_MEN 6
+# define K_PLUS 7
 # define DIV 75
 # define MULT 67
+# define K_W 13
+# define K_A 0
+# define K_S 1
+# define K_D 2
+# define SPA 49
 
 # define CLOSE 17
 
+/*========== FLAGS ==========*/
 # define ADD 1
 # define DIVIDE 2
 # define MAX 1
@@ -63,6 +67,7 @@ typedef struct s_coordinates
 	float	x;
 	float	z;
 	float	h;
+	short	clr;
 }	t_coord;
 
 typedef struct s_map
@@ -95,13 +100,14 @@ typedef struct s_data
 
 typedef struct s_input
 {
-	int	zoom;
-	int	mvx;
-	int	mvy;
-	int	rotx;
-	int	roty;
-	int	rotz;
-	int	height;
+	int		zoom;
+	int		mvx;
+	int		mvy;
+	int		rotx;
+	int		roty;
+	int		rotz;
+	int		height;
+	short	color;
 }	t_input;
 
 typedef struct s_mlx
@@ -115,6 +121,7 @@ typedef struct s_mlx
 }	t_mlx;
 
 size_t	ft_strlen(const char *str);
+char	*ft_strchr(const char *s, int c);
 int		ft_printf(const char *str, ...);
 char	*get_next_line(int fd);
 int		ft_atoi(const char *str);
@@ -134,5 +141,9 @@ int		register_hooks(int key, t_mlx *mlx);
 t_input	init_input(t_input inp);
 int		close_program(t_mlx *mlx);
 t_coord	*read_map(t_map *map, int i);
+
+/* UTILS 2 */
+void	print_movements(void);
+int		ft_atoi_base(const char *str);
 
 #endif
