@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/09 13:22:56 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:32:01 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	init_coordinates(char *line, t_coord *value, t_map map, int col)
 		return ;
 	while (i < mapx)
 	{
-		value[i + col * mapx].x = (float)(i - mapx / 2) * 2;
-		value[i + col * mapx].y = (float)(col - (int)map.y / 2) * 2;
+		value[i + col * mapx].x = (float)((i - mapx / 2) * 2);
+		value[i + col * mapx].y = (float)((col - (int)map.y / 2) * 2);
 		value[i + col * mapx].z = ft_atoi(splited[i]);
 		value[i + col * mapx].h = value[i + col * mapx].z;
 		value[i + col * mapx].clr = ft_atoi_base(ft_strchr(splited[i], ','));
@@ -102,7 +102,7 @@ int	main(int argc, char **argv)
 	t_mlx	mlx;
 
 	if (argc != 2)
-		return (write(2, "invalid params", 15), 1);
+		return (write(2, "invalid params\n", 16), 1);
 	mlx.map.argv = argv[1];
 	win_size(&mlx.map);
 	if (mlx.map.x == 0)
@@ -118,7 +118,7 @@ int	main(int argc, char **argv)
 	mlx.img.addr = mlx_get_data_addr(mlx.img.img, &mlx.img.bpp, \
 		&mlx.img.line_length, &mlx.img.endian);
 	mlx.keys = init_input(mlx.keys);
-	mlx_key_hook(mlx.win, register_hooks, &mlx);
+	mlx_hook(mlx.win, 2, 0, register_hooks, &mlx);
 	grid(&mlx, mlx.map);
 	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img.img, 0, 0);
 	mlx_hook(mlx.win, CLOSE, 0, close_program, (&mlx));

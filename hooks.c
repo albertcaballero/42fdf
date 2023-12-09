@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:42:40 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/09 14:05:19 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:09:30 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_input	init_input(t_input inp)
 	inp.roty = 0;
 	inp.rotz = 0;
 	inp.zoom = 9;
-	inp.color = 1;
+	inp.line = 0;
 	return (inp);
 }
 
@@ -80,7 +80,11 @@ int	register_hooks(int key, t_mlx *mlx)
 	else if (key == DIV || key == MULT || key == K_MEN || key == K_PLUS)
 		mlx->keys = zoom_hooks(key, mlx->keys);
 	else if (key == SPA)
-		mlx->keys.color *= -1;
+	{
+		mlx->keys.line++;
+		if (mlx->keys.line > 2)
+			mlx->keys.line = 0;
+	}
 	else
 		return (0);
 	clear_screen(&mlx->img);

@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 14:17:16 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/09 12:36:06 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/12/09 17:23:32 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	line(t_data *img, t_coord start, t_coord end, t_map map)
 
 t_coord	*update_coordinate_grid(t_coord *initial, long mapsz, t_input keys)
 {
-	t_coord *values;
+	t_coord	*values;
 	int		i;
 
 	i = 0;
@@ -80,16 +80,36 @@ t_coord	*update_coordinate_grid(t_coord *initial, long mapsz, t_input keys)
 	return (values);
 }
 
+void	paint_points(t_data *img, t_coord *val, t_map map)
+{
+	int	i;
+
+	i = 0;
+	while (i < map.count)
+	{
+		if (val[i].clr == 0)
+			val[i].clr = colors(val[i], val[i], 1, map);
+		my_mlx_pixel_put(img, (int)round(val[i].x), \
+			(int)round(val[i].y), val[i].clr);
+		i++;
+	}
+}
+
 void	grid(t_mlx *mlx, t_map map)
 {
-	t_coord *val;
+	t_coord	*val;
 	int		i;
 
 	i = 0;
 	val = update_coordinate_grid(mlx->ini, map.count, mlx->keys);
+	if (mlx->keys.line == 2)
+	{
+		paint_points(&mlx->img, val, map);
+		return (free(val));
+	}
 	while (i < map.count)
 	{
-		if ((i + 1) % (int)map.x != 0 && mlx->keys.color == 1)
+		if ((i + 1) % (int)map.x != 0 && mlx->keys.line == 0)
 			line(&mlx->img, val[i], val[i + 1], map);
 		if (i / (int)(map.x) + 1 < map.y)
 			line(&mlx->img, val[i], val[i + (int)map.x], map);

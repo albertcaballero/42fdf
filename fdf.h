@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/09 13:22:48 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/12/09 16:59:10 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct s_coordinates
 	float	x;
 	float	z;
 	float	h;
-	short	clr;
+	int		clr;
 }	t_coord;
 
 typedef struct s_map
@@ -107,7 +107,7 @@ typedef struct s_input
 	int		roty;
 	int		rotz;
 	int		height;
-	short	color;
+	int		line;
 }	t_input;
 
 typedef struct s_mlx
