@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:30:56 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/09 17:32:01 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:44:08 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,8 +125,3 @@ int	main(int argc, char **argv)
 	mlx_loop(mlx.mlx);
 	return (0);
 }
-
-//implement map color if included
-//another keyhook to toggle between colors
-//keeping a key pressed should work too
-//still optimizable if i stop drawing once it goes out of the screen

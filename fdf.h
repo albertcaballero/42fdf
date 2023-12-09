@@ -6,7 +6,7 @@
 /*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 15:31:08 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/09 16:59:10 by alcaball         ###   ########.fr       */
+/*   Updated: 2023/12/09 19:52:27 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,6 @@ int		register_hooks(int key, t_mlx *mlx);
 t_input	init_input(t_input inp);
 int		close_program(t_mlx *mlx);
 t_coord	*read_map(t_map *map, int i);
-
-/* UTILS 2 */
 void	print_movements(void);
 int		ft_atoi_base(const char *str);
 

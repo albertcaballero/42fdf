@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albert <albert@student.42.fr>              +#+  +:+       +#+        */
+/*   By: alcaball <alcaball@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/09 16:14:43 by alcaball          #+#    #+#             */
-/*   Updated: 2023/12/08 01:12:26 by albert           ###   ########.fr       */
+/*   Updated: 2023/12/09 19:47:24 by alcaball         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 300
+#  define BUFFER_SIZE 400
 # endif
 
 # include <unistd.h>
